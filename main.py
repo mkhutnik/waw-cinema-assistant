@@ -32,34 +32,48 @@ def iluzjon():
     return wynik
 
 def result(title, time, kino):
+    cinema = {}
     for i in range(0, len(title), 1):
         help_l={}
         help_l['title'] = title[i]
         help_l['time'] = time[i]
         help_l['cinema'] = kino
+        result = get_title(title[i])
+        reating = get_reating(result)
         help_l['reating'] = 'N/A'
         cinema[title[i]] = help_l
     return cinema
 
 def merge(dic_1, dic_2):
+    final = {}
     for i in dic_1:
         for j in dic_2:
-            if i == j:
+            if str(i) == str(j):
                 help_l = {}
                 help_l['title'] = dic_1[i]['title']
                 help_l['time'] = dic_1[i]['time']
                 help_l['cinema'] = f'{dic_1[i]['cinema']} & {dic_2[j]['cinema']}'
-                help_l['reating'] = 'N/A'
+                help_l['reating'] = dic_1[i]['reating']
                 cinema[dic_1[i]['title']] = help_l
-
     updated = {**dic_1, **dic_2}
-    pprint(updated)
     final = {**updated, **cinema}
-    pprint(final)
     return final
+
+def get_title(title):
+    print(title)
+    result = title.replace(' ', "_")
+    return result
+
+def get_reating(name):
+    url = f'https://www.rottentomatoes.com/m/{name}'
+    print(url)
+    soup = requests.get(url).text
+    soup = BeautifulSoup(soup, 'html.parser')
+    #soup = soup.findAll('rt-link', {'theme':'medium'})
+    #pprint(soup)
 
 ### TODO comparing dictionaries
 
 AMONDO = amondo()
 ILUZJON = iluzjon()
-merge(AMONDO, ILUZJON)
+LISTA = merge(dic_1=AMONDO, dic_2=ILUZJON)
