@@ -51,7 +51,7 @@ def iluzjon():
             int(year[i][-1])
             help_l.append(year[i][-1].strip())
         except ValueError:
-            pass
+            help_l.append('0')
     for i in range(0, len(title_p)):
         title.append(f'{title_p[i]} ({int(help_l[i])})')
     return result(title, time, 'ILUZJON')
@@ -84,10 +84,13 @@ def merge(dic_1, dic_2):
 
 def get_rating(name):
     search = ia.search_movie(name)
-    search = search[0].getID()
-    rating = ia.get_movie(search)
-    rating = rating.data['rating']
-    return rating
+    if len(search) == 0:
+        return 'N/A'
+    else:
+        search = search[0].getID()
+        rating = ia.get_movie(search)
+        rating = rating.data['rating']
+        return rating
 
 @app.route('/')
 def hello():
