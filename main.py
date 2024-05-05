@@ -1,110 +1,110 @@
-import datetime,imdb, requests
-import time
+import collections
+import datetime, imdb, requests
+import time as tm
+from concurrent.futures.thread import ThreadPoolExecutor
 from pprint import pprint
 from bs4 import BeautifulSoup
 from flask import Flask, render_template
-
+#TODO usunac zbede biblioteki
+#TODO dodac
 ia = imdb.IMDb()
+list_without_duplicates = []
+url_amondo = 'https://kinoamondo.pl/repertuar/'
+url_iluzjon = 'https://www.iluzjon.fn.org.pl/repertuar.html'
 app = Flask(__name__)
 
-def amondo(data):
-    url = 'https://kinoamondo.pl/repertuar/'
-    soup = requests.get(url).text
-    soup = BeautifulSoup(soup, 'html.parser')
-    links = soup.find_all('div', class_ = 'col-md-2 col-sm-3')
-    links = [i.find('a')['href'] for i in links ]
-    soup = soup.find(id=f'schedule-{data}')
-    title_p = soup.find_all(class_ ='no-underline')
-    title_p = [i.text for i in title_p]
-    time = soup.find_all(class_='time')
-    time = [i.text for i in time]
-    title = []
-    for i in range(0,len(title_p)):
-        soup_2 = requests.get(links[i]).text
-        soup_2 = BeautifulSoup(soup_2, 'html.parser')
-        year = soup_2.find_all('ul', class_='movie-info')
-        year = [i.find_all_next('li') for i in year]
-        year = str(year[0][1])
-        l = len(year)
-        year = year[l-12:l-8]
-        title.append(f'{title_p[i]} ({year})')
-    return result(title, time, 'AMONDO')
-def iluzjon():
-    time = []
-    title_p = []
-    title = []
-    help_l = []
-    url = 'https://www.iluzjon.fn.org.pl/repertuar.html'
-    soup = requests.get(url).text
-    soup = BeautifulSoup(soup, 'html.parser')
-    soup = soup.find(class_='box wide')
-    soup = soup.table
-    time_and_hour = soup.find_all(class_ = 'hour')
-    time_and_hour = [i.text.split(' - ') for i in time_and_hour]
-    for i in range(0, len(time_and_hour)):
-        time.append(time_and_hour[i][0])
-        title_p.append(time_and_hour[i][1])
-    year = soup.find_all('i')
-    year = [i.text.split(',') for i in year]
-    for i in range(0,len(year), 1):
-        try:
-            int(year[i][-1])
-            help_l.append(year[i][-1].strip())
-        except ValueError:
-            help_l.append('0')
-    for i in range(0, len(title_p)):
-        title.append(f'{title_p[i]} ({int(help_l[i])})')
-    return result(title, time, 'ILUZJON')
 
-def result(title, time, kino):
-    cinema = {}
-    for i in range(0, len(title), 1):
-        help_l = {
-            'rating': get_rating(title[i]),
-            'time': time[i],
-            'cinema': kino
-        }
-        cinema[title[i]] = help_l
-    return cinema
+def html(url):
+    response = requests.get(url)
+    return response.text
 
-def merge(dic_1, dic_2):
-    cinema = {}
-    for i in dic_1:
-        for j in dic_2:
-            if str(i) == str(j):
-                help_l = {
-                    'rating': dic_1[i]['reating'],
-                    'time': f'AMONDO: {dic_1[i]['cinema']}; ILUZJON: {dic_2[j]['cinema']}',
-                    'cinema': f'{dic_1[i]['cinema']} & {dic_2[j]['cinema']}'
-                    }
-                cinema[dic_1[i]['title']] = help_l
-    updated = {**dic_1, **dic_2}
-    final = {**updated, **cinema}
-    return final
+
+def fetch_info_amondo(url, time):
+    request = html(url)
+    soup = BeautifulSoup(request, 'html.parser')
+    title_1 = soup.find('h1').text
+    year_list = [i.find_all_next('li') for i in soup.find_all('ul', class_='movie-info')]
+    year_string = str(year_list[0][1])
+    year = year_string[len(year_string) - 12:len(year_string)- 8]
+    rating = get_rating(f'{title_1} ({year})')
+    return {'rating': rating, 'time': time, 'cinema': 'AMONDO', 'title': title_1}
+
+def fetch_info_iluzjon(title_p, time_p, year):
+    title = title_p
+    time = time_p
+    rating = get_rating(f'{title_p} ({year})')
+    return {'rating': rating, 'time': time, 'cinema': 'ILUZJON', 'title': title}
+
 
 def get_rating(name):
     search = ia.search_movie(name)
     if len(search) == 0:
-        return 'N/A'
+        return '0000'
     else:
         search = search[0].getID()
         rating = ia.get_movie(search)
         rating = rating.data['rating']
         return rating
 
+def get_year(year):
+    try:
+        int(year[-1])
+        return year[-1].strip()
+    except ValueError:
+        return '0000'
+
+
+def amondo(data):
+    lista =[]
+    request = html(url_amondo)
+    soup = BeautifulSoup(request, 'html.parser')
+    box = soup.find(id=f'schedule-{data}')
+    links = [i.find('a')['href'] for i in box.find_all('div', class_='col-md-2 col-sm-3')]
+    time = [i.text for i in box.find_all(class_='time')]
+    with ThreadPoolExecutor(len(links)) as executor:
+        for result in executor.map(fetch_info_amondo, links, time):
+            lista.append(result)
+    return lista
+
+
+def iluzjon():
+    lista = []
+    lista_2 = []
+    request = html(url_iluzjon)
+    box = BeautifulSoup(request, 'html.parser').table
+    time_and_title = [i.text.split(' - ') for i in box.find_all(class_='hour')]
+    time = [time_and_title[i][0] for i in range(0,len(time_and_title),1)]
+    title = [time_and_title[i][1] for i in range(0, len(time_and_title), 1)]
+    year = [i.text.split(',') for i in box.find_all('i')]
+    with ThreadPoolExecutor(len(title)) as executor:
+        for result in executor.map(get_year, year):
+            lista.append(result)
+    with ThreadPoolExecutor(len(title)) as executor:
+        for result in executor.map(fetch_info_iluzjon, title, time, lista):
+            lista_2.append(result)
+    return lista_2
+
+
+def merge(dic_1, dic_2):
+    dic_1.extend(dic_2)
+    pprint(dic_1)
+    return dic_1
+
+
 @app.route('/')
-def hello():
+def front():
     return render_template('help.html')
+
+
 @app.route('/final')
 def final():
-    data = datetime.datetime.now().date()
-    AMONDO = amondo(data)
+    czas1 = tm.time()
+    AMONDO = amondo(datetime.datetime.now().date())
     ILUZJON = iluzjon()
-    LISTA = merge(dic_1=AMONDO, dic_2 = ILUZJON)
-    return render_template('index.html', post = LISTA)
-
-
+    LISTA = merge(dic_1=AMONDO, dic_2=ILUZJON)
+    czas2 = tm.time()
+    print(czas2 - czas1)
+    return render_template('index.html', post=LISTA)
 
 if __name__ == '__main__':
-    app.run(debug = True)
-
+    app.run(debug=True)

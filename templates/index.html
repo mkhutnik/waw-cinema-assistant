@@ -1,14 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> HI </title>
-</head>
-<body>
-<h1> The results are here:</h1>
-    {% for i in post %}
-       <p><b>{{i}}</b>: {{post[i]}}</p>
-    {% endfor %}
+{% extends 'base.html' %}
+{% block title %}Results{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<div class="jumbotron2 text-center">
+    <div class="container">
+
+  <h1 class="display-4">The results are here:</h1>
+  <hr class="my-4">
+<!--        {% for i in post %}-->
+<!--        <p><b>{{i}}</b>: {{post[i]}}</p>-->
+<!--        {% endfor %}-->
+    <table class=>
+  <thead>
+  </thead>
+  <tbody>
+    <tr>
+        <th scope="row">Title</th>
+        {% for i in post: %}
+            <th>{{i['title']}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <th scope="row">Rating</th>
+        {% for i in post: %}
+            <th>{{i['rating']}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <th scope="row">Time</th>
+        {% for i in post: %}
+            <th>{{i['time']}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <th scope="row">Cinema</th>
+        {% for i in post: %}
+            <th>{{i['cinema']}}</th>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+    </div>
+</div>
+{% endblock %}

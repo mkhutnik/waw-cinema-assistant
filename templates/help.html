@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>The results will be with you in about 30s. </h1>
-<a href={{url_for('final')}}>RUN</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Cinema assistant{% endblock%}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1> Click the button to get cinema results.</h1>
+        <button type="button" class="btn btn-success" href={{url_for('final')}} >
+            <a href={{url_for('final')}} style="color:inherit">Run the program</a></button>
+<!--<a class="btn btn-outline-dark" href={{url_for('final')}} role="button">RUN</a>-->
+        <p> The results will be with you in about 45.</p>
+        </div>
+    </div>
+{%endblock%}

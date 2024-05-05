@@ -1,0 +1,30 @@
+
+.jumbotron {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  height: 100vh;
+  color: #539165;
+  background-color: #B3C99C;
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 415;
+  font-style: normal;
+}
+.jumbotron2 {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  height: 100vh;
+  color: #3F497F;
+  background-color: #B3C99C;
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 415;
+  font-style: normal;
+}
+
+.space-above {
+    margin-top: 20px;
+    padding-top: 20px;
+}
