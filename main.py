@@ -1,12 +1,9 @@
-import collections
 import datetime, imdb, requests
-import time as tm
 from concurrent.futures.thread import ThreadPoolExecutor
 from pprint import pprint
 from bs4 import BeautifulSoup
 from flask import Flask, render_template
-#TODO usunac zbede biblioteki
-#TODO dodac
+
 ia = imdb.IMDb()
 list_without_duplicates = []
 url_amondo = 'https://kinoamondo.pl/repertuar/'
@@ -98,12 +95,9 @@ def front():
 
 @app.route('/final')
 def final():
-    czas1 = tm.time()
     AMONDO = amondo(datetime.datetime.now().date())
     ILUZJON = iluzjon()
     LISTA = merge(dic_1=AMONDO, dic_2=ILUZJON)
-    czas2 = tm.time()
-    print(czas2 - czas1)
     return render_template('index.html', post=LISTA)
 
 if __name__ == '__main__':

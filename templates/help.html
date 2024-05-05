@@ -4,11 +4,12 @@
 {% block content %}
 <div class="jumbotron text-center">
     <div class="container">
-        <h1> Click the button to get cinema results.</h1>
+        <h1> Click to get movie recommendations for today! </h1>
         <button type="button" class="btn btn-success" href={{url_for('final')}} >
-            <a href={{url_for('final')}} style="color:inherit">Run the program</a></button>
-<!--<a class="btn btn-outline-dark" href={{url_for('final')}} role="button">RUN</a>-->
-        <p> The results will be with you in about 45.</p>
+            <a href={{url_for('final')}} style="color:inherit">Run</a></button>
+        <br>
+        <h2> (the results will be with you in about 20 seconds) </h2>
+        <hr>
         </div>
     </div>
 {%endblock%}
