@@ -19,7 +19,7 @@
   <tbody>
     {% for i in post: %}
         <tr>
-            <th> {{ i['title'] }}</th>
+            <th><a href={{i['link']}}>{{ i['title'] }}</a></th>
             <th> {{ i['rating'] }}</th>
             <th> {{ i['time'] }}</th>
             <th> {{ i['cinema'] }}</th>

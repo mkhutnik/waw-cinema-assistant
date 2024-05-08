@@ -24,24 +24,27 @@ def fetch_info_amondo(url, time):
     year_string = str(year_list[0][1])
     year = year_string[len(year_string) - 12:len(year_string)- 8]
     rating = get_rating(f'{title_1} ({year})')
-    return {'rating': rating, 'time': time, 'cinema': 'AMONDO', 'title': title_1}
+    return {'rating': rating, 'time': time, 'cinema': 'AMONDO', 'title': title_1, 'link': url}
+
 
 def fetch_info_iluzjon(title_p, time_p, year):
     title = title_p
     time = time_p
-    rating = get_rating(f'{title_p} ({year})')
-    return {'rating': rating, 'time': time, 'cinema': 'ILUZJON', 'title': title}
+    rating = get_rating(f'{title} ({year})')
+    return {'rating': rating, 'time': time, 'cinema': 'ILUZJON', 'title': title, 'link': url_iluzjon}
 
 
 def get_rating(name):
-    search = ia.search_movie(name)
-    if len(search) == 0:
-        return '0000'
-    else:
+    try:
+        search = ia.search_movie(name)
         search = search[0].getID()
-        rating = ia.get_movie(search)
-        rating = rating.data['rating']
+        rating_1 = ia.get_movie(search)
+        rating = rating_1.data['rating']
         return rating
+    except KeyError:
+        return 'N/A'
+    except IndexError:
+        return 'N/A'
 
 def get_year(year):
     try:
