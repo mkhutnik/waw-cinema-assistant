@@ -21,8 +21,11 @@ def fetch_info_amondo(url, time):
     soup = BeautifulSoup(request, 'html.parser')
     title_1 = soup.find('h1').text
     year_list = [i.find_all_next('li') for i in soup.find_all('ul', class_='movie-info')]
-    year_string = str(year_list[0][1])
-    year = year_string[len(year_string) - 12:len(year_string)- 8]
+    try:
+        year_string = str(year_list[0][1])
+        year = year_string[len(year_string) - 12:len(year_string)- 8]
+    except:
+        year= '0000'
     rating = get_rating(f'{title_1} ({year})')
     return {'rating': rating, 'time': time, 'cinema': 'AMONDO', 'title': title_1, 'link': url}
 
