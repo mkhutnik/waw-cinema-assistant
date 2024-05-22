@@ -2,55 +2,34 @@
 {% block title %}Results{% endblock %}
 
 {% block content %}
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" id="first">
     <div class="container">
-
-  <h1 class="display-4">The results are here:</h1>
-  <hr>
-        <div class="table">
+        <h1 class="display-6">Movie recommendations in Warsaw</h1>
+        <hr>
+        <div class="table bdr">
         <table class="table">
-  <thead class="table-success">
-    <th scope="col">Title</th>
-    <th scope="col">Rating</th>
-    <th scope="col">Time & Place</th>
-    <th scope="col">Cinema</th>
+          <thead class="table-primary">
+            <th scope="col">Title</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Time & Place</th>
+            <th scope="col">Cinema</th>
 
-  </thead>
-  <tbody>
-    {% for i in post: %}
-        <tr>
+          </thead>
+            <tbody>
+            {% for i in post: %}
+            <tr>
             <th><a href={{i['link']}}>{{ i['title'] }}</a></th>
             <th> {{ i['rating'] }}</th>
             <th> {{ i['time'] }}</th>
             <th> {{ i['cinema'] }}</th>
-        </tr>
-    {% endfor %}
-<!--    <tr>-->
-<!--        <th scope="col">Title</th>-->
-<!--        {% for i in post: %}-->
-<!--            <th >{{i['title']}}</th>-->
-<!--        {% endfor %}-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th scope="row">Rating</th>-->
-<!--        {% for i in post: %}-->
-<!--            <th>{{i['rating']}}</th>-->
-<!--        {% endfor %}-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th scope="row">Time</th>-->
-<!--        {% for i in post: %}-->
-<!--            <th>{{i['time']}}</th>-->
-<!--        {% endfor %}-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th scope="row">Cinema</th>-->
-<!--        {% for i in post: %}-->
-<!--            <th>{{i['cinema']}}</th>-->
-<!--        {% endfor %}-->
-<!--    </tr>-->
-    </tbody>
-</table>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            <br>
+            <button type="button" class="btn btn-primary">
+                <a href={{url_for('front')}} style="color:inherit">Go Back
+                </a></button>
         </div>
     </div>
 </div>

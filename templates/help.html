@@ -2,14 +2,26 @@
 {% block title %}Cinema assistant{% endblock%}
 
 {% block content %}
-<div class="jumbotron text-center">
-    <div class="container">
-        <h1> Click to get movie recommendations for today! </h1>
-        <button type="button" class="btn btn-success" href={{url_for('final')}} >
-            <a href={{url_for('final')}} style="color:inherit">Run</a></button>
-        <br>
-        <h2>(the results will be with you in about 20 seconds)</h2>
-        <hr>
-        </div>
-    </div>
+<div class="jumbotron jumbotron-fluid" id ='first'>
+  <div class="container">
+    <h1>Warsaw movie recommendations.</h1>
+      <br>
+     <form class="form-group" action="{{url_for('final', option_i = day)}}" method = 'GET'>
+             <div class="form-group  mb-2">
+                <select class="form-control" id="input" name="day">
+                    <option>TODAY</option>
+                    <option>TOMORROW</option>
+                    <option>DAY AFTER TOMORROW</option>
+                </select>
+                 <br>
+                 <button type="submit" class="btn btn-primary">See results</button>
+            </div>
+    </form>
+    <br>
+    <h4>The results will be with you in about 20 seconds.</h4>
+      <hr>
+  </div>
+</div>
+
+
 {%endblock%}

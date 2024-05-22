@@ -1,13 +1,20 @@
 import datetime, imdb, requests
+import operator
+from audioop import reverse
 from concurrent.futures.thread import ThreadPoolExecutor
-from pprint import pprint
 from bs4 import BeautifulSoup
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 ia = imdb.IMDb()
 list_without_duplicates = []
 url_amondo = 'https://kinoamondo.pl/repertuar/'
 url_iluzjon = 'https://www.iluzjon.fn.org.pl/repertuar.html'
+
+DAYS = {
+    'TODAY': [datetime.datetime.now().date(), 0],
+    'TOMORROW': [datetime.datetime.now().date() + datetime.timedelta(1), 1],
+    'DAY AFTER TOMORROW': [datetime.datetime.now().date() + datetime.timedelta(2), 2]
+}
 app = Flask(__name__)
 
 
@@ -17,37 +24,33 @@ def html(url):
 
 
 def fetch_info_amondo(url, time):
-    request = html(url)
-    soup = BeautifulSoup(request, 'html.parser')
+    soup = BeautifulSoup(html(url), 'html.parser')
     title_1 = soup.find('h1').text
     year_list = [i.find_all_next('li') for i in soup.find_all('ul', class_='movie-info')]
     try:
         year_string = str(year_list[0][1])
-        year = year_string[len(year_string) - 12:len(year_string)- 8]
-    except:
-        year= '0000'
+        year = year_string[len(year_string) - 12:len(year_string) - 8]
+    except IndexError:
+        year = '0000'
     rating = get_rating(f'{title_1} ({year})')
     return {'rating': rating, 'time': time, 'cinema': 'AMONDO', 'title': title_1, 'link': url}
 
 
-def fetch_info_iluzjon(title_p, time_p, year):
-    title = title_p
-    time = time_p
+def fetch_info_iluzjon(title, time, year):
     rating = get_rating(f'{title} ({year})')
     return {'rating': rating, 'time': time, 'cinema': 'ILUZJON', 'title': title, 'link': url_iluzjon}
 
 
-def get_rating(name):
+def get_rating(title_and_year):
     try:
-        search = ia.search_movie(name)
-        search = search[0].getID()
-        rating_1 = ia.get_movie(search)
-        rating = rating_1.data['rating']
+        info = ia.get_movie(ia.search_movie(title_and_year)[0].getID())
+        rating = info.data['rating']
         return rating
     except KeyError:
-        return 'N/A'
+        return ''
     except IndexError:
-        return 'N/A'
+        return ''
+
 
 def get_year(year):
     try:
@@ -57,11 +60,11 @@ def get_year(year):
         return '0000'
 
 
-def amondo(data):
-    lista =[]
-    request = html(url_amondo)
-    soup = BeautifulSoup(request, 'html.parser')
-    box = soup.find(id=f'schedule-{data}')
+def amondo(number):
+    lista = []
+    req = html(url_amondo)
+    soup = BeautifulSoup(req, 'html.parser')
+    box = soup.find(id=f'schedule-{number}')
     links = [i.find('a')['href'] for i in box.find_all('div', class_='col-md-2 col-sm-3')]
     time = [i.text for i in box.find_all(class_='time')]
     with ThreadPoolExecutor(len(links)) as executor:
@@ -70,13 +73,12 @@ def amondo(data):
     return lista
 
 
-def iluzjon():
+def iluzjon(number):
     lista = []
     lista_2 = []
-    request = html(url_iluzjon)
-    box = BeautifulSoup(request, 'html.parser').table
+    box = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('table')[number]
     time_and_title = [i.text.split(' - ') for i in box.find_all(class_='hour')]
-    time = [time_and_title[i][0] for i in range(0,len(time_and_title),1)]
+    time = [time_and_title[i][0] for i in range(0, len(time_and_title), 1)]
     title = [time_and_title[i][1] for i in range(0, len(time_and_title), 1)]
     year = [i.text.split(',') for i in box.find_all('i')]
     with ThreadPoolExecutor(len(title)) as executor:
@@ -88,10 +90,9 @@ def iluzjon():
     return lista_2
 
 
-def merge(dic_1, dic_2):
-    dic_1.extend(dic_2)
-    pprint(dic_1)
-    return dic_1
+def merge(Amondo, Iluzjon):
+    Amondo.extend(Iluzjon)
+    return Amondo
 
 
 @app.route('/')
@@ -99,12 +100,15 @@ def front():
     return render_template('help.html')
 
 
-@app.route('/final')
+@app.route('/final', methods=['GET', 'POST'])
 def final():
-    AMONDO = amondo(datetime.datetime.now().date())
-    ILUZJON = iluzjon()
-    LISTA = merge(dic_1=AMONDO, dic_2=ILUZJON)
+    day = DAYS[request.args.get('day')]
+    Amondo = amondo(day[0])
+    Iluzjon = iluzjon(day[1])
+    LISTA = merge(Amondo, Iluzjon)
+    LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
     return render_template('index.html', post=LISTA)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

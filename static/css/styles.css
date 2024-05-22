@@ -1,19 +1,30 @@
+body{
+    background-color: #EEEEEE;
+}
 
-.jumbotron {
+#first{
   display: flex;
   align-items: center;
-  margin: 0;
-  height: 110vh;
-  color: #539165;
-  background-color: #B3C99C;
+  justify-text: center;
+  margin: 12;
+  height: 100vh;
+  color: #31363F;
+  background-color: #EEEEEE;
   font-family: "EB Garamond", serif;
   font-optical-sizing: auto;
   font-weight: 415;
   font-style: normal;
 }
 
-.space-above {
+.space-above{
     margin-top: 20px;
     padding-top: 20px;
 }
 
+#input{
+  width: 30%;
+  border-color: #31363F;
+  align: center;
+  margin-left: 100,
+  color: #539165;
+}
