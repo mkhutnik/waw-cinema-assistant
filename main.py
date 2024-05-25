@@ -67,6 +67,8 @@ def amondo(number):
     box = soup.find(id=f'schedule-{number}')
     links = [i.find('a')['href'] for i in box.find_all('div', class_='col-md-2 col-sm-3')]
     time = [i.text for i in box.find_all(class_='time')]
+    if len(links) == 0:
+        return []
     with ThreadPoolExecutor(len(links)) as executor:
         for result in executor.map(fetch_info_amondo, links, time):
             lista.append(result)
