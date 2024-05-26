@@ -6,8 +6,8 @@ body{
   display: flex;
   align-items: center;
   justify-text: center;
-  margin: 12;
-  height: 100vh;
+  margin: 12px;
+  height: 85vh;
   color: #31363F;
   background-color: #EEEEEE;
   font-family: "EB Garamond", serif;
@@ -20,7 +20,7 @@ body{
   display: flex;
   align-items: center;
   justify-text: center;
-  margin: 12;
+  margin 12px;
   color: #31363F;
   background-color: #EEEEEE;
   font-family: "EB Garamond", serif;
