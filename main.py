@@ -65,31 +65,39 @@ def amondo(number):
     req = html(url_amondo)
     soup = BeautifulSoup(req, 'html.parser')
     box = soup.find(id=f'schedule-{number}')
-    links = [i.find('a')['href'] for i in box.find_all('div', class_='col-md-2 col-sm-3')]
-    time = [i.text for i in box.find_all(class_='time')]
-    if len(links) == 0:
+    try:
+        links = [i.find('a')['href'] for i in box.find_all('div', class_='col-md-2 col-sm-3')]
+        time = [i.text for i in box.find_all(class_='time')]
+        if len(links) == 0:
+            return []
+        with ThreadPoolExecutor(len(links)) as executor:
+            for result in executor.map(fetch_info_amondo, links, time):
+                lista.append(result)
+        return lista
+    except AttributeError:
         return []
-    with ThreadPoolExecutor(len(links)) as executor:
-        for result in executor.map(fetch_info_amondo, links, time):
-            lista.append(result)
-    return lista
 
 
-def iluzjon(number):
+def iluzjon(day_number):
     lista = []
     lista_2 = []
-    box = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('table')[number]
-    time_and_title = [i.text.split(' - ') for i in box.find_all(class_='hour')]
-    time = [time_and_title[i][0] for i in range(0, len(time_and_title), 1)]
-    title = [time_and_title[i][1] for i in range(0, len(time_and_title), 1)]
-    year = [i.text.split(',') for i in box.find_all('i')]
-    with ThreadPoolExecutor(len(title)) as executor:
-        for result in executor.map(get_year, year):
-            lista.append(result)
-    with ThreadPoolExecutor(len(title)) as executor:
-        for result in executor.map(fetch_info_iluzjon, title, time, lista):
-            lista_2.append(result)
-    return lista_2
+    head = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('h3')
+    try:
+        day = [i.text[0:2] for i in head].index(day_number)
+        box = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('table')[day]
+        time_and_title = [i.text.split(' - ') for i in box.find_all(class_='hour')]
+        time = [time_and_title[i][0] for i in range(0, len(time_and_title), 1)]
+        title = [time_and_title[i][1] for i in range(0, len(time_and_title), 1)]
+        year = [i.text.split(',') for i in box.find_all('i')]
+        with ThreadPoolExecutor(len(title)) as executor:
+            for result in executor.map(get_year, year):
+                lista.append(result)
+        with ThreadPoolExecutor(len(title)) as executor:
+            for result in executor.map(fetch_info_iluzjon, title, time, lista):
+                lista_2.append(result)
+        return lista_2
+    except ValueError:
+        return []
 
 
 def merge(Amondo, Iluzjon):
@@ -106,7 +114,7 @@ def front():
 def final():
     day = DAYS[request.args.get('day')]
     Amondo = amondo(day[0])
-    Iluzjon = iluzjon(day[1])
+    Iluzjon = iluzjon(day_number=str(day[0])[8:10])
     LISTA = merge(Amondo, Iluzjon)
     LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
     return render_template('index.html', post=LISTA)
