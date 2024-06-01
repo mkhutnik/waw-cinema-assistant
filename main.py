@@ -84,7 +84,6 @@ def iluzjon(day_number):
     head = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('h3')
     try:
         day = [int(i.text[0:2]) for i in head].index(day_number)
-        print(day)
         box = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('table')[day]
         time_and_title = [i.text.split(' - ') for i in box.find_all(class_='hour')]
         time = [time_and_title[i][0] for i in range(0, len(time_and_title), 1)]
