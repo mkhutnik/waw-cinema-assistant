@@ -114,7 +114,6 @@ def front():
 @app.route('/final', methods=['GET', 'POST'])
 def final():
     day = DAYS[request.args.get('day')]
-    print(day, day[0])
     Amondo = amondo(day[0])
     Iluzjon = iluzjon(day_number=int(day[0].day))
     LISTA = merge(Amondo, Iluzjon)
