@@ -15,30 +15,31 @@ DAYS = {
     'TOMORROW': [datetime.datetime.now().date() + datetime.timedelta(1), 1],
     'DAY AFTER TOMORROW': [datetime.datetime.now().date() + datetime.timedelta(2), 2]
 }
+
 app = Flask(__name__)
 
 
-def html(url):
-    response = requests.get(url)
+def make_request(movie_url):
+    response = requests.get(movie_url)
     return response.text
 
 
-def fetch_info_amondo(url, time):
-    soup = BeautifulSoup(html(url), 'html.parser')
-    title_1 = soup.find('h1').text
-    year_list = [i.find_all_next('li') for i in soup.find_all('ul', class_='movie-info')]
+def fetch_info_amondo(movie_url, time_of_movie):
+    url_beauty_soup_result = BeautifulSoup(make_request(movie_url), 'html.parser')
+    movie_title = url_beauty_soup_result.find('h1').text
+    list_of_years = [i.find_all_next('li') for i in url_beauty_soup_result.find_all('ul', class_='movie-info')]
     try:
-        year_string = str(year_list[0][1])
-        year = year_string[len(year_string) - 12:len(year_string) - 8]
+        year_as_string = str(list_of_years[0][1])
+        production_year = year_as_string[len(year_as_string) - 12:len(year_as_string) - 8]
     except IndexError:
-        year = '0000'
-    rating = get_rating(f'{title_1} ({year})')
-    return {'rating': rating, 'time': time, 'cinema': 'AMONDO', 'title': title_1, 'link': url}
+        production_year = '0000'
+    rating = get_rating(f'{movie_title} ({production_year})')
+    return {'rating': rating, 'time': time_of_movie, 'cinema': 'AMONDO', 'title': movie_title, 'link': movie_url}
 
-
-def fetch_info_iluzjon(title, time, year):
-    rating = get_rating(f'{title} ({year})')
-    return {'rating': rating, 'time': time, 'cinema': 'ILUZJON', 'title': title, 'link': url_iluzjon}
+def fetch_info_iluzjon(movie_title, time_of_movie, production_year):
+    rating = get_rating(f'{movie_title} ({production_year})')
+    return {'rating': rating, 'time': time_of_movie,
+            'cinema': 'ILUZJON', 'title': movie_title, 'link': url_iluzjon}
 
 
 def get_rating(title_and_year):
@@ -52,50 +53,49 @@ def get_rating(title_and_year):
         return ''
 
 
-def get_year(year):
+def get_year(production_year):
     try:
-        int(year[-1])
-        return year[-1].strip()
+        int(production_year[-1])
+        return production_year[-1].strip()
     except ValueError:
         return '0000'
 
 
-def amondo(number):
-    lista = []
-    req = html(url_amondo)
-    soup = BeautifulSoup(req, 'html.parser')
-    box = soup.find(id=f'schedule-{number}')
+def amondo(day):
+    list_results = []
+    url_beauty_soup_result = BeautifulSoup(make_request(url_amondo), 'html.parser')
+    box_result = url_beauty_soup_result.find(id=f'schedule-{day}')
     try:
-        links = [i.find('a')['href'] for i in box.find_all('div', class_='col-md-2 col-sm-3')]
-        time = [i.text for i in box.find_all(class_='time')]
-        if len(links) == 0:
+        list_links = [i.find('a')['href'] for i in box_result.find_all('div', class_='col-md-2 col-sm-3')]
+        list_times = [i.text for i in box_result.find_all(class_='time')]
+        if len(list_links) == 0:
             return []
-        with ThreadPoolExecutor(len(links)) as executor:
-            for result in executor.map(fetch_info_amondo, links, time):
-                lista.append(result)
-        return lista
+        with ThreadPoolExecutor(len(list_links)) as executor:
+            for result in executor.map(fetch_info_amondo, list_links, list_times):
+                list_results.append(result)
+        return list_results
     except AttributeError:
         return []
 
 
-def iluzjon(day_number):
-    lista = []
-    lista_2 = []
-    head = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('h3')
+def iluzjon(day):
+    list_result = []
+    list_final_result = []
+    list_h3 = BeautifulSoup(make_request(url_iluzjon), 'html.parser').find_all('h3')
     try:
-        day = [int(i.text[0:2]) for i in head].index(day_number)
-        box = BeautifulSoup(html(url_iluzjon), 'html.parser').find_all('table')[day]
-        time_and_title = [i.text.split(' - ') for i in box.find_all(class_='hour')]
-        time = [time_and_title[i][0] for i in range(0, len(time_and_title), 1)]
-        title = [time_and_title[i][1] for i in range(0, len(time_and_title), 1)]
-        year = [i.text.split(',') for i in box.find_all('i')]
-        with ThreadPoolExecutor(len(title)) as executor:
-            for result in executor.map(get_year, year):
-                lista.append(result)
-        with ThreadPoolExecutor(len(title)) as executor:
-            for result in executor.map(fetch_info_iluzjon, title, time, lista):
-                lista_2.append(result)
-        return lista_2
+        day_number = [int(i.text[0:2]) for i in list_h3].index(day)
+        box = BeautifulSoup(make_request(url_iluzjon), 'html.parser').find_all('table')[day_number]
+        list_title_and_time = [i.text.split(' - ') for i in box.find_all(class_='hour')]
+        list_time = [list_title_and_time[i][0] for i in range(0, len(list_title_and_time), 1)]
+        list_title = [list_title_and_time[i][1] for i in range(0, len(list_title_and_time), 1)]
+        list_year = [i.text.split(',') for i in box.find_all('i')]
+        with ThreadPoolExecutor(len(list_title)) as executor:
+            for result in executor.map(get_year, list_year):
+                list_result.append(result)
+        with ThreadPoolExecutor(len(list_title)) as executor:
+            for result in executor.map(fetch_info_iluzjon, list_title, list_time, list_result):
+                list_final_result.append(result)
+        return list_final_result
     except ValueError:
         return []
 
@@ -114,7 +114,7 @@ def front():
 def final():
     day = DAYS[request.args.get('day')]
     Amondo = amondo(day[0])
-    Iluzjon = iluzjon(day_number=int(day[0].day))
+    Iluzjon = iluzjon(day=int(day[0].day))
     LISTA = merge(Amondo, Iluzjon)
     LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
     return render_template('index.html', post=LISTA)

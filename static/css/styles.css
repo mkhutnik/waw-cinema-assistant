@@ -20,7 +20,7 @@ body{
   display: flex;
   align-items: center;
   justify-text: center;
-  margin 12px;
+  margin: 12px;
   color: #31363F;
   background-color: #EEEEEE;
   font-family: "EB Garamond", serif;
@@ -35,11 +35,12 @@ body{
 }
 
 #input{
-  width: 30%;
+  width: 15%;
   border-color: #31363F;
   align: center;
-  margin-left: 100,
-  color: #539165;
+  background-color: rgba(13, 110, 253, 0.64);
+  color: #EEEEEE;
+  text-align: center;
 }
 form-signin{
     width: 100%;
