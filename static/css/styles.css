@@ -1,50 +1,73 @@
 body{
-    background-color: #EEEEEE;
+    background-color: #EAEAF0;
+    color: #31363F;
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: normal;
+}
+#main{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 100%;
+    align-content: center;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    justify-text: center;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: #E2E1D5;
+    border-radius:15px;
+}
+h4{
+    font-size: 25px;
 }
 
-#second{
-  display: flex;
-  align-items: center;
-  justify-text: center;
-  margin: 12px;
-  height: 85vh;
-  color: #31363F;
-  background-color: #EEEEEE;
-  font-family: "EB Garamond", serif;
-  font-optical-sizing: auto;
-  font-weight: 415;
-  font-style: normal;
-}
-
-#first{
-  display: flex;
-  align-items: center;
-  justify-text: center;
-  margin: 12px;
-  color: #31363F;
-  background-color: #EEEEEE;
-  font-family: "EB Garamond", serif;
-  font-optical-sizing: auto;
-  font-weight: 415;
-  font-style: normal;
-}
-
-.space-above{
-    margin-top: 20px;
-    padding-top: 20px;
+#button{
+    margin: 10px;
+    background-color: #4682B4;
+    border-color: #EEEEEE;
+    color: #DCDCDC;
 }
 
 #input{
-  width: 15%;
-  border-color: #31363F;
-  align: center;
-  background-color: rgba(13, 110, 253, 0.64);
-  color: #EEEEEE;
-  text-align: center;
+    border-radius:5px;
+    height: 38px;
+    /*padding-top: 6px;*/
+    /*padding-bottom: 6px;*/
+    background-color: #4682B4;
+    border-color: #EEEEEE;
+    color: #DCDCDC;
+    text-align: center;
+    margin: 5px;
+    font-weight: bold;
 }
-form-signin{
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
+thead{
+    background-color:#B0C4DE;
+    font-weight: bold;
+}
+
+th, td{
+    /*background-color:;*/
+    padding: 10px;
+    align-self: center;
+    border: 1px solid rgb(160 160 160);
+}
+
+table {
+    border-radius:10px;
+    border: 1px solid rgb(160 160 160);
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    padding: 30px;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+#title{
+    padding: 10px;
 }

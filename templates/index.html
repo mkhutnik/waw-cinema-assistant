@@ -2,35 +2,33 @@
 {% block title %}Results{% endblock %}
 
 {% block content %}
-<div class="jumbotron text-center" id='first'>
-    <div class="container py-3">
+<div id="main" class="container">
+    <div class="row-gap-sm-3" id="title">
         <h1 class="display-6">Movie recommendations in Warsaw</h1>
         <hr>
-        <div class="table bdr">
-        <table class="table table-sm table-bordered">
-          <thead class="table-primary">
-            <th scope="col">Title</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Time & Place</th>
-            <th scope="col">Cinema</th>
-
-          </thead>
-            <tbody>
-            {% for i in post: %}
-            <tr>
-            <th><a href={{i['link']}}>{{ i['title'] }}</a></th>
-            <th> {{ i['rating'] }}</th>
-            <th> {{ i['time'] }}</th>
-            <th> {{ i['cinema'] }}</th>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-            <br>
-            <button type="button" class="btn btn-primary">
-                <a href={{url_for('front')}} style="color:inherit">Go Back
-                </a></button>
-        </div>
     </div>
+
+    <table id='table' class="center">
+        <thead>
+        <th scope="col">Title</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Time & Place</th>
+        <th scope="col">Cinema</th>
+        </thead>
+
+        <tbody>
+            {% for i in post: %}
+                <tr>
+                <th scope="row"><a href={{i['link']}}>{{ i['title'] }}</a></th>
+                <th> {{ i['rating'] }}</th>
+                <th> {{ i['time'] }}</th>
+                <th> {{ i['cinema'] }}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button id="button" class="btn btn-primary">
+        <a href={{url_for('front')}} style="color:inherit">Go Back</a>
+    </button>
 </div>
 {% endblock %}

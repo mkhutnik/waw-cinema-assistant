@@ -2,25 +2,36 @@
 {% block title %}Cinema assistant{% endblock%}
 
 {% block content %}
-<div class="jumbotron jumbotron-fluid" id ='second'>
-  <div class="container">
-    <h1>Warsaw movie recommendations.</h1>
-      <br>
-      <form class="form-group" action="{{url_for('final', option_i = day)}}" method = 'GET'>
-         <div class="form-group  mb-2">
-             <select class="form-control" id="input" name="day">
-                <option>TODAY</option>
-                <option>TOMORROW</option>
-                <option>DAY AFTER TOMORROW</option>
-             </select>
-             <br>
-             <button type="submit" class="btn btn-primary">See results</button>
-         </div>
-      </form>
-      <br>
-      <h4>The results will be with you in about 20 seconds.</h4>
-      <hr>
-  </div>
-</div>
+    <div id="main" class="container">
+        <div class="row">
+            <div class="col">
+                <div id="title" class="col">
+                    <h1>Warsaw movie recommendations</h1>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div id="form" class="row">
+            <form class="row" action="{{url_for('final', option_i = day)}}" method = 'GET'>
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <label for="input"></label>
+                    <select class="form-select-sm-center" id="input" name="day">
+                        <option>TODAY</option>
+                        <option>TOMORROW</option>
+                        <option>DAY AFTER TOMORROW</option>
+                    </select>
+                <button id='button' type="submit" class="btn btn-primary">See results</button>
+                </div>
+            </form>
+            <div class="col-2"></div>
+        </div>
+        <br>
+
+        <div class="row">
+            <h4>The results will be with you in about 20 seconds.</h4>
+        </div>
+    </div>
 {%endblock%}
 
