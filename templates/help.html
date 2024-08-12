@@ -2,36 +2,52 @@
 {% block title %}Cinema assistant{% endblock%}
 
 {% block content %}
-    <div id="main" class="container">
-        <div class="row">
-            <div class="col">
-                <div id="title" class="col">
-                    <h1>Warsaw movie recommendations</h1>
-                </div>
+    <div class="row">
+        <div class="col">
+            <div id="title" class="col">
+                <a>
+                <img src="/static/movie.png"
+                     alt="Movie" width="60" height="60" class="rounded-left">
+                <h1>Warsaw movie recommendations</h1></a>
+                <br>
+                <br>
             </div>
         </div>
-        <br>
+    </div>
+    <br>
 
-        <div id="form" class="row">
-            <form class="row" action="{{url_for('final', option_i = day)}}" method = 'GET'>
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <label for="input"></label>
-                    <select class="form-select-sm-center" id="input" name="day">
-                        <option>TODAY</option>
-                        <option>TOMORROW</option>
-                        <option>DAY AFTER TOMORROW</option>
-                    </select>
-                <button id='button' type="submit" class="btn btn-primary">See results</button>
-                </div>
-            </form>
-            <div class="col-2"></div>
-        </div>
-        <br>
+    <div id="form" class="row">
+        <form action="/final" method="POST">
+            <div class="form-check-inline">
+            <input type="radio" id="TODAY" name="day" value="TODAY">
+            <label for="TODAY">TODAY</label>
+            </div>
+            <div class="form-check-inline">
+            <input type="radio" id="TOMORROW" name="day" value="TOMORROW">
+                <label for="TOMORROW">TOMORROW</label></div>
+            <div class="form-check-inline">
+            <input type="radio" id="DAY AFTER TOMORROW" name="day" value="DAY AFTER TOMORROW">
+                <label for="DAY AFTER TOMORROW">DAY AFTER TOMORROW</label></div>
+          <button id='button' type="submit" class="btn btn-primary">See results</button>
+        </form>
+    </div>
+{#        <form class="row" action="{{url_for('final', option_i = day)}}" method = 'GET'>#}
+{#            <div class="col-sm-2"></div>#}
+{#            <div class="col-sm-8">#}
+{#                <label for="input"></label>#}
+{#                <select class="form-select-sm-center" id="input" name="day">#}
+{#                    <option>TODAY</option>#}
+{#                    <option>TOMORROW</option>#}
+{#                    <option>DAY AFTER TOMORROW</option>#}
+{#                </select>#}
+{#            <button id='button' type="submit" class="btn btn-primary">See results</button>#}
+{#            </div>#}
+{#        </form>#}
 
-        <div class="row">
-            <h4>The results will be with you in about 20 seconds.</h4>
-        </div>
+    <br>
+
+    <div class="row">
+        <h4>The results will be with you in about 20 seconds.</h4>
     </div>
 {%endblock%}
 

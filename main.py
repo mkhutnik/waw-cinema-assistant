@@ -107,14 +107,25 @@ def front():
     return render_template('help.html')
 
 
-@app.route('/final', methods=['GET', 'POST'])
+@app.errorhandler(404)
+def page_404(e):
+    return render_template('404.html'), 404
+
+
+@app.route('/final', methods=['GET','POST'])
 def final():
-    date = DAYS[request.args.get('day')]
-    Amondo = amondo(date)
-    Iluzjon = iluzjon(day_number=int(date.day))
-    LISTA = merge(Amondo, Iluzjon)
-    LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
-    return render_template('index.html', post=LISTA)
+    if request.method == 'POST':
+        option = request.form['day']
+        print(option)
+        date = DAYS[option]
+        print(date)
+        Amondo = amondo(date)
+        Iluzjon = iluzjon(day_number=int(date.day))
+        LISTA = merge(Amondo, Iluzjon)
+        LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
+        return render_template('index.html', post=LISTA)
+    else:
+        return render_template('help.html')
 
 
 if __name__ == '__main__':
