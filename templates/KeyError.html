@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+    Try Again.
+{% endblock%}
+
+{% block content %}
+        <div class="row">
+            <div class="col">
+                <div id="Com" class="col">
+                    <h1>Oops!</h1>
+                    <h4>It seems like you haven't selected a day.</h4>
+                    <h4>Select a day by clicking on the circle.</h4>
+                </div>
+            </div>
+        </div>
+    <button id="button" class="btn btn-primary">
+        <a href={{url_for('front')}} style="color:inherit">Go Back</a>
+    </button>
+{% endblock %}

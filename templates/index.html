@@ -2,27 +2,32 @@
 {% block title %}Results{% endblock %}
 {% block content %}
 <div class="row-gap-sm-3" id="title">
-    <h1 class="display-6">Movie recommendations in Warsaw</h1>
+    <h5 class="display-6">Movie recommendations in Warsaw</h5>
     <hr>
 </div>
-<table id='table' class="center">
-    <thead>
-    <th scope="col">Title</th>
-    <th scope="col">Rating</th>
-    <th scope="col">Time & Place</th>
-    <th scope="col">Cinema</th>
-    </thead>
-    <tbody>
-        {% for i in post:%}
-            <tr>
-            <th scope="row"><a href={{i['link']}}>{{ i['title'] }}</a></th>
-            <th> {{ i['rating'] }}</th>
-            <th> {{ i['time'] }}</th>
-            <th> {{ i['cinema'] }}</th>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% if post|length == 0: %}
+    <h4>There are no movies.</h4><h4> Try another day.</h4>
+{% else: %}
+    <table id='table' class="center">
+        <thead>
+        <th scope="col">Title</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Time & Place</th>
+        <th scope="col">Cinema</th>
+        </thead>
+        <tbody>
+            {% for i in post:%}
+                <tr>
+                <th scope="row"><a href={{i['link']}}>{{ i['title'] }}</a></th>
+                <th> {{ i['rating'] }}</th>
+                <th> {{ i['time'] }}</th>
+                <th> {{ i['cinema'] }}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+    <br>
 <button id="button" class="btn btn-primary">
     <a href={{url_for('front')}} style="color:inherit">Go Back</a>
 </button>

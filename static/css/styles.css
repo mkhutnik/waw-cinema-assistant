@@ -5,43 +5,42 @@ body{
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: normal;
-}
+    justify-text: center;
+    text-align: center;}
+
+#header{
+    background-color: rgba(226, 225, 213);
+    width: 70%;
+    margin-top: 2%;
+    border-radius: 30px;
+    padding: 1%;
+    justify-content: center;}
+
 #main{
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 50%;
-    height: 100%;
-    z-index: -20;
+    width: 70%;
+    min-height: 70%;
     align-content: center;
     transform: translate(-50%, -50%);
-    padding: 30px;
-    justify-text: center;
     align-items: center;
-    text-align: center;
     justify-content: center;
     background-color: rgba(226, 225, 213) ;
-    border-radius: 15px;
-}
-#title{
-    background-color: #E2E1D5
+    border-radius: 30px;}
 
-}
+#title{
+    background-color: #E2E1D5}
 
 h4{
-    font-size: 25px;
-    padding: 10px;
-}
-h1{
-    padding: 30px;
+    font-size: 20px;
+    padding: 2px;
 }
 
 #button{
-    margin: 10px;
     background-color: #4682B4;
     border-color: #EEEEEE;
-    color: #DCDCDC;
-}
+    color: #DCDCDC;}
 
 #input{
     border-radius:5px;
@@ -51,30 +50,21 @@ h1{
     color: #DCDCDC;
     text-align: center;
     margin: 5px;
-    font-weight: bold;
-}
+    font-weight: bold;}
 thead{
     background-color:#B0C4DE;
-    font-weight: bold;
-}
+    font-weight: bold;}
 
 th, td{
-    padding: 10px;
     align-self: center;
-    border: 1px solid rgb(160 160 160);
-}
+    border: 1px solid rgb(160 160 160);}
 
 table {
-    border-radius:10px;
+    display: compact;
     border: 1px solid rgb(160 160 160);
-    font-size: 15px;
-    letter-spacing: 1.5px;
-    padding: 30px;
-}
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 30px;}
 .center{
     margin-left: auto;
-    margin-right: auto;
-}
-#title{
-    padding: 10px;
-}
+    margin-right: auto;}

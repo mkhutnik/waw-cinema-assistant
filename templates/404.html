@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+    Page not found
+{% endblock%}
+
+{% block content %}
+        <div class="row">
+            <div class="col">
+                <div id="" class="col">
+                    <div id="" class="row">
+                        <div id="Error" class="col"><img src="/static/404.png"
+                                 alt="404" width="50" height="50" class="rounded-left"></div>
+                    </div>
+                    <div class="row">
+                        <h4 class>We can't seem to find the page, you are looking for. </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <button id="button" class="btn btn-primary">
+        <a href={{url_for('front')}} style="color:inherit">Go Back</a>
+    </button>
+{% endblock %}
