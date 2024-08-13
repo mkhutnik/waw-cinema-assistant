@@ -114,18 +114,14 @@ def page_404(e):
 
 @app.route('/final', methods=['GET','POST'])
 def final():
-    if request.method == 'POST':
-        option = request.form['day']
-        print(option)
-        date = DAYS[option]
-        print(date)
-        Amondo = amondo(date)
-        Iluzjon = iluzjon(day_number=int(date.day))
-        LISTA = merge(Amondo, Iluzjon)
-        LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
-        return render_template('index.html', post=LISTA)
-    else:
-        return render_template('help.html')
+    option = request.args.get('day')
+    print(option)
+    date = DAYS[option]
+    Amondo = amondo(date)
+    Iluzjon = iluzjon(day_number=int(date.day))
+    LISTA = merge(Amondo, Iluzjon)
+    LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
+    return render_template('index.html', post=LISTA)
 
 
 if __name__ == '__main__':
