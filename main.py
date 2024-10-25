@@ -115,16 +115,13 @@ def page_404(e):
 @app.route('/final', methods=['GET','POST'])
 def final():
     option = request.args.get('day')
-    try:
-        print(option)
-        date = DAYS[option]
-        Amondo = amondo(date)
-        Iluzjon = iluzjon(day_number=int(date.day))
-        LISTA = merge(Amondo, Iluzjon)
-        LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
-        return render_template('index.html', post=LISTA)
-    except KeyError:
-        return render_template('KeyError.html')
+    print(option)
+    date = DAYS[option]
+    Amondo = amondo(date)
+    Iluzjon = iluzjon(day_number=int(date.day))
+    LISTA = merge(Amondo, Iluzjon)
+    LISTA.sort(key=lambda x: str(x['rating']), reverse=True)
+    return render_template('index.html', post=LISTA)
 
 
 if __name__ == '__main__':
