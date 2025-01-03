@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}Cinema assistant{% endblock%}
+
+{% block title %}
+    Cinema assistant
+{% endblock%}
 
 {% block content %}
-    <div class="row">
-        <div class="col">
-            <div id="title" class="col">
-                <a>
-                <img src="/static/movie2.png"
-                     alt="Movie" width="60" height="60" class="rounded-left">
-                <h1 class="d-flex justify-content-center py-sm-3">Warsaw movie recommendations</h1></a>
-            </div>
-        </div>
+    <div id = 'title' class="container-title">
+        <a>
+            <img src="/static/movie2.png" alt="Movie" width="60" height="60" class="rounded-left">
+            <h1 class="">Warsaw movie recommendations</h1>
+        </a>
     </div>
-    <div id="form" class="row">
+    <div id="form" class = "container-form">
         <form action="{{url_for('final', options = day)}}"  method="GET">
             <div class="flex form-check-inline">
                 <input type="radio" id="TODAY" name="day" value="TODAY" checked>
@@ -27,8 +26,8 @@
           <button id='button' type="submit" class="btn btn-primary">See results</button>
         </form>
     </div>
-    <br>
-    <div class="row">
+
+    <div class="row mt-4">
         <h4>The results will be with you in about 20 seconds.</h4>
     </div>
 {%endblock%}
