@@ -13,35 +13,29 @@
 </head>
 
 <body>
-<div class="container" id="header">
-    <ul class="nav nav-pills">
-        <div class="col-3"></div>
-        <div class="col-3"><li class="nav-item">
-{#            <a href="https://www.linkedin.com/in/kinga-mazur-22019b259/"#}
-{#               class="nav-link"><img src="/static/LIn.png"#}
-{#                                 alt="LinkedIn" width="25" height="24">#}
-{#            LinkedIn</a></li></div>#}
-            <a href="https://www.linkedin.com/in/kinga-mazur-22019b259/"
-               class="nav-link">
-            Kinga Mazur (grupa: MZ106L)</a></li></div>
+    <div class="container-header" id="header-center">
+        <ul class="nav nav-pills justify-content-center">
+            <li class="nav-item col-auto">
+                <a href="https://www.linkedin.com/in/kinga-mazur-22019b259/"
+                   class="nav-link d-flex align-items-center">
+                    <img src="/static/LIn.png" alt="LinkedIn" width="25" height="24" class="me-2">
+                    LinkedIn
+                </a>
+            </li>
 
+            <li class="nav-item col-auto">
+                <a href="https://github.com/kmzr9b67/waw-cinema-assistant/tree/master"
+                   class="nav-link d-flex align-items-center">
+                    <img src="/static/Git.png" alt="GitHub" width="25" height="24" class="rounded me-2">
+                    GitHub
+                </a>
+            </li>
+        </ul>
+    </div>
 
-        <div class="col-3"><li class="nav-item">
-            <a href="https://github.com/kmzr9b67/waw-cinema-assistant/tree/master" class="nav-link">
-                <img src="/static/Git.png"
-                                 alt="GitHub" width="25" height="24" class="rounded">
-        GitHub</a></li></div>
-        <div class="col-3"></div>
-
-  </ul>
-</div>
-<div class="linebreak"></div>
-<div id="main" class="container">
-    {% block content %}
-    {% endblock %}
-</div>
+    <div class="container-main" id="main">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
-<footer>
-
-</footer>
 </html>

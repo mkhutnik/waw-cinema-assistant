@@ -8,7 +8,7 @@
 {% if post|length == 0: %}
     <h4>There are no movies.</h4><h4> Try another day.</h4>
 {% else: %}
-    <table id='table' class="center">
+    <table id='' class="center">
         <thead>
         <th scope="col">Title</th>
         <th scope="col">Rating</th>
@@ -26,8 +26,8 @@
             {% endfor %}
         </tbody>
     </table>
+
 {% endif %}
-    <br>
 <button id="button" class="btn btn-primary">
     <a href={{url_for('front')}} style="color:inherit">Go Back</a>
 </button>
