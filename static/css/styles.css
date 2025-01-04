@@ -1,12 +1,16 @@
 body{
     background-color: #FAF3E0;
     color: #264653;
-    font-family: "EB Garamond", serif;
+    font-family: "EB Garamond", sans-serif;
     font-optical-sizing: auto;
     font-style: initial;
     font-weight: normal;
     text-align: center;
 }
+
+/* .h1-title {
+    color: whitesmoke;
+} */
 
 .container-main{
     background-color: #cac4b1;
@@ -31,6 +35,28 @@ body{
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.container-title {
+    font-family: "Limelight", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: whitesmoke;
+}
+
+.title-image {
+    padding-bottom: 35px;
+}
+
+.container-form {
+    padding: 35px;
+}
+
+.button {
+    padding: 35px;
+}
+
+/* #button {
+    padding: 25px;
+} */
 
 #input{
     border-radius:5px;

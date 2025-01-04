@@ -6,10 +6,9 @@
 
 {% block content %}
     <div id = 'title' class="container-title">
-        <a>
-            <img src="/static/movie2.png" alt="Movie" width="60" height="60" class="rounded-left">
-            <h1 class="">Warsaw movie recommendations</h1>
-        </a>
+            <img class="title-image" src="/static/movie2.png" alt="Movie" width="60" height="60" class="rounded-left">
+            <h1 class="h1-title">movie recommendations</h1>
+            <h2 class="">in Warsaw</h2>
     </div>
     <div id="form" class = "container-form">
         <form action="{{url_for('final', options = day)}}"  method="GET">
@@ -23,7 +22,10 @@
             <div class="flex form-check-inline">
                 <input type="radio" id="DAY AFTER TOMORROW" name="day" value="DAY AFTER TOMORROW">
                 <label for="DAY AFTER TOMORROW">DAY AFTER TOMORROW</label></div>
-          <button id='button' type="submit" class="btn btn-primary">See results</button>
+                
+            <div class="button">
+                <button id='button' type="submit" class="btn btn-primary">See results</button>
+            </div>
         </form>
     </div>
 
