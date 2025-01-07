@@ -37,6 +37,8 @@ def amondo(number):
     except AttributeError:
         return []
     time_list = [i.text for i in box.find_all(class_='time')]
+    if cinema.numer > cinema.id:
+        return 0
     with ThreadPoolExecutor(len(url_list)) as executor:
         for mapa in executor.map(fetch_movie_info, url_list, time_list):
             CinemaScraper.result.append(mapa)
@@ -56,6 +58,8 @@ def iluzjon(day_number):
     list_times = [i[0] for i in time_and_title]
     list_title = [i[1] for i in time_and_title]
     years = [i.text.split(',') for i in show_table.find_all('i')]
+    if cinema.numer > cinema.id:
+        return 0
     show_years = cinema.get_shows_list(years)
     cinema.get_result_map(list_times, list_title, show_years)
     return 0
@@ -63,6 +67,7 @@ def iluzjon(day_number):
 
 @app.route('/')
 def front():
+    print(1)
     return render_template('help.html')
 
 
@@ -76,6 +81,7 @@ def final():
     repertuar = CinemaScraper.result
     repertuar.sort(key=lambda x: str(x['rating']), reverse=True)
     print(time.time() - start)
+
     return render_template('index.html', post=repertuar)
 
 
