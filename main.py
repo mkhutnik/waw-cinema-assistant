@@ -67,6 +67,7 @@ def iluzjon(day_number):
 
 @app.route('/')
 def front():
+    print(1)
     return render_template('help.html')
 
 
