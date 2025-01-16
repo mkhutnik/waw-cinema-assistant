@@ -1,7 +1,6 @@
 import datetime
-import time
-from concurrent.futures.thread import ThreadPoolExecutor
 
+from concurrent.futures.thread import ThreadPoolExecutor
 from flask import Flask, render_template, request
 
 from Amondo import Amondo
@@ -18,30 +17,10 @@ result = []
 app = Flask(__name__)
 
 
-def fetch_movie_info(url, time):
-    cinema = CinemaScraper.Movie(base_url=url, time=time)
-    cinema.set_title()
-    cinema.set_year()
-    cinema.set_cinema('Amondo')
-    cinema.set_rating()
-    return cinema.to_dictionary()
-
 def amondo(number):
-    cinema = Amondo()
     CinemaScraper.result = []
-    box = cinema.html_parser().find(id=f'schedule-{number}')
-    try:
-        url_list = [i.find('a')['href'] for i in box.find_all('div', class_='col-md-2 col-sm-3')]
-        if len(url_list) == 0:
-            return []
-    except AttributeError:
-        return []
-    time_list = [i.text for i in box.find_all(class_='time')]
-    if cinema.numer > cinema.id:
-        return 0
-    with ThreadPoolExecutor(len(url_list)) as executor:
-        for mapa in executor.map(fetch_movie_info, url_list, time_list):
-            CinemaScraper.result.append(mapa)
+    cinema = Amondo()
+    cinema.retrive_movie_info(number)
     return 0
 
 
@@ -52,6 +31,7 @@ def iluzjon(day_number):
         counter = [int(i.text[0:2]) for i in headings].index(day_number)
     except ValueError:
         return []
+
     show_table = cinema.find_elements_by_tag('table')[counter]
     show_table_hour = show_table.find_all(class_='hour')
     time_and_title = [i.text.split(' - ') for i in show_table_hour]
@@ -69,17 +49,15 @@ def iluzjon(day_number):
 def front():
     return render_template('help.html')
 
-
 @app.route('/final', methods=['GET', 'POST'])
 def final():
-    start = time.time()
     date = DAYS[request.args.get('day')]
     with ThreadPoolExecutor(max_workers=2) as executor:
         executor.submit(amondo, date)
         executor.submit(iluzjon, int(date.day))
+    # print(CinemaScraper.result)
     repertuar = CinemaScraper.result
     repertuar.sort(key=lambda x: str(x['rating']), reverse=True)
-    print(time.time() - start)
 
     return render_template('index.html', post=repertuar)
 
