@@ -37,7 +37,8 @@ class Amondo(CinemaScraper):
             return 0
 
         with ThreadPoolExecutor(len(url_list)) as executor:
-            for mapa in executor.map(__fetch_movie_info, url_list, time_list):
+            for mapa in executor.map(__fetch_movie_info,
+                                     url_list, time_list):
                 CinemaScraper.result.append(mapa)
 
         return 0

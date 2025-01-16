@@ -3,7 +3,6 @@ from concurrent.futures import ThreadPoolExecutor
 from CinemaScraper import CinemaScraper
 from Movie import Movie
 
-
 class Iluzjon(CinemaScraper):
     lista_shows = []
     numer = 0
@@ -24,6 +23,7 @@ class Iluzjon(CinemaScraper):
 
 
     def get_shows_list(self, lista):
+
         def __get_year(info):
             try:
                 int(info[-1])

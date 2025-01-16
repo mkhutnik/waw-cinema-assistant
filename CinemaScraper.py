@@ -1,8 +1,6 @@
 import requests
-from bs4 import BeautifulSoup
 
-def add_info(lista_info):
-    return CinemaScraper.result.append(lista_info)
+from bs4 import BeautifulSoup
 
 class CinemaScraper:
     result = []
@@ -17,10 +15,12 @@ class CinemaScraper:
 
     def html_parser(self):
         if self._html is None:
-            self._html = BeautifulSoup(self.make_request(), 'html.parser')
+            self._html = BeautifulSoup(self.make_request(),
+                                       'html.parser')
         return self._html
 
     def find_elements_by_tag(self, tag):
         if self._html is None:
-            self._html = BeautifulSoup(self.make_request(), 'html.parser')
+            self._html = BeautifulSoup(self.make_request(),
+                                       'html.parser')
         return self._html.find_all(tag)

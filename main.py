@@ -1,6 +1,6 @@
 import datetime
-
 from concurrent.futures.thread import ThreadPoolExecutor
+
 from flask import Flask, render_template, request
 
 from Amondo import Amondo
@@ -13,7 +13,6 @@ DAYS = {
     'DAY AFTER TOMORROW': datetime.datetime.now().date() + datetime.timedelta(2)
 }
 
-result = []
 app = Flask(__name__)
 
 
@@ -38,8 +37,10 @@ def iluzjon(day_number):
     list_times = [i[0] for i in time_and_title]
     list_title = [i[1] for i in time_and_title]
     years = [i.text.split(',') for i in show_table.find_all('i')]
+
     if cinema.numer > cinema.id:
         return 0
+
     show_years = cinema.get_shows_list(years)
     cinema.get_result_map(list_times, list_title, show_years)
     return 0
@@ -52,10 +53,11 @@ def front():
 @app.route('/final', methods=['GET', 'POST'])
 def final():
     date = DAYS[request.args.get('day')]
+
     with ThreadPoolExecutor(max_workers=2) as executor:
         executor.submit(amondo, date)
         executor.submit(iluzjon, int(date.day))
-    # print(CinemaScraper.result)
+
     repertuar = CinemaScraper.result
     repertuar.sort(key=lambda x: str(x['rating']), reverse=True)
 
