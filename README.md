@@ -1,7 +1,8 @@
 # Waw-Cinema-Assistant
 
 This Python project aims to create a personal assistant for movie enthusiasts in Warsaw. 
-Using web scraping with Beautiful Soup 4 and Flask, it extracts relevant information from the websites of two popular cinemas in Warsaw: Amondo and Iluzjon. 
+Using web scraping with Beautiful Soup 4 and Flask, 
+it extracts relevant information from the websites of two popular cinemas in Warsaw: Amondo and Iluzjon. 
 
 **The entire project is deployed on Google Cloud Run, ensuring scalability and automated resource management.**
 
@@ -11,7 +12,8 @@ Using web scraping with Beautiful Soup 4 and Flask, it extracts relevant informa
 * **Multithreading:** Speeds up data retrieval from multiple pages simultaneously using multithreading.
 * **Integration with IMDb:** Leverages the IMDb library to fetch additional movie information such as ratings.
 * **Python-Based:** Built using Python, a versatile and popular programming language for data science and automation.
-* **Deployed on Google Cloud Run:** The application is deployed on the serverless Google Cloud Run platform, ensuring automated scaling and resource management.
+* **Deployed on Google Cloud Run:** The application is deployed on the serverless Google Cloud Run platform,
+* ensuring automated scaling and resource management.
 
 ## Technologies Used
 * **Beautiful Soup 4:** A Python library for parsing HTML and XML documents.
