@@ -1,6 +1,7 @@
 body{
-    background-color: #FAF3E0;
-    color: #264653;
+    /* background-color: #FAF3E0; */
+    background: radial-gradient(#47044d, #20043d);
+    /* color: #264653; */
     font-family: "EB Garamond", sans-serif;
     font-optical-sizing: auto;
     font-style: initial;
@@ -8,12 +9,13 @@ body{
     text-align: center;
 }
 
-/* .h1-title {
+.h1-title {
     color: whitesmoke;
-} */
+    padding-top: 30px;
+}
 
 .container-main{
-    background-color: #cac4b1;
+    /* background-color: #cac4b1; */
     padding: 1%;
     margin-top: 1%;
     margin-right: 0%;
@@ -21,14 +23,14 @@ body{
     margin-bottom: 10%;
     padding-bottom: 5%;
     padding-top: 5%;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
 .container-form,.container-title{
     margin: 1% 0%;
 }
 .container-header{
-    background-color: #cac4b1;
+    /* background-color: #cac4b1; */
     padding-top: 1%;
     padding-bottom: 1%;
     z-index: 1;
@@ -39,26 +41,26 @@ body{
     font-family: "Limelight", serif;
     font-weight: 400;
     font-style: normal;
-    color: whitesmoke;
-}
-
-.title-image {
-    padding-bottom: 35px;
+    /* color: whitesmoke; */
+    background: linear-gradient(40deg, #ea00ff, #ea00ff, #03d5ff, #03d5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .container-form {
     padding: 35px;
+    color: whitesmoke;
+    font-family: "Noto Znamenny Musical Notation";
+    padding-bottom: 35px;
 }
 
-.button {
-    padding: 35px;
+.btn-primary {
+    margin-top: 45px;
+    color: #20043d;
+    background-color: #03d5ff;
 }
 
-/* #button {
-    padding: 25px;
-} */
-
-#input{
+#input {
     border-radius:5px;
     height: 38px;
     background-color: #4682B4;
@@ -66,7 +68,9 @@ body{
     color: #DCDCDC;
     text-align: center;
     margin: 5px;
-    font-weight: bold;}
+    font-weight: bold;
+}
+
 table {
     border-collapse: collapse;
     margin: 0 auto;
@@ -75,23 +79,25 @@ table {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2%;
     margin-bottom: 2%;
-
 }
+
 th, td {
     padding: 10px;
     text-align: left;
-
-
-
 }
+
 th {
     background-color: #f9f9f9;
     color: #333;
-
 }
 
 tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+h4 {
+    color: #03d5ff;
+    font-size: 18px;
 }
 /*thead{*/
 /*    background-color:#B0C4DE;*/
@@ -110,9 +116,12 @@ tr:nth-child(even) {
 /*    margin-bottom: 2%;*/
 /*    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);*/
 /*}*/
-button{
-    padding: 2%;
-}
+
 .center{
     margin-left: auto;
-    margin-right: auto;}
+    margin-right: auto;
+}
+
+.flex form-check-inline {
+    font-family: serif;
+}

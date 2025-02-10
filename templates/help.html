@@ -6,7 +6,7 @@
 
 {% block content %}
     <div id = 'title' class="container-title">
-            <img class="title-image" src="/static/movie2.png" alt="Movie" width="60" height="60" class="rounded-left">
+            <img class="title-image" src="/static/cinema.png" alt="Movie" width="80" height="80" class="rounded-left">
             <h1 class="h1-title">movie recommendations</h1>
             <h2 class="">in Warsaw</h2>
     </div>
@@ -14,14 +14,14 @@
         <form action="{{url_for('final', options = day)}}"  method="GET">
             <div class="flex form-check-inline">
                 <input type="radio" id="TODAY" name="day" value="TODAY" checked>
-                <label for="TODAY">TODAY</label>
+                <label for="TODAY">today</label>
             </div>
             <div class="flex form-check-inline">
                 <input type="radio" id="TOMORROW" name="day" value="TOMORROW">
-                <label for="TOMORROW">TOMORROW</label></div>
+                <label for="TOMORROW">tomorrow</label></div>
             <div class="flex form-check-inline">
                 <input type="radio" id="DAY AFTER TOMORROW" name="day" value="DAY AFTER TOMORROW">
-                <label for="DAY AFTER TOMORROW">DAY AFTER TOMORROW</label></div>
+                <label for="DAY AFTER TOMORROW">day after tomorrow</label></div>
                 
             <div class="button">
                 <button id='button' type="submit" class="btn btn-primary">See results</button>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="row mt-4">
-        <h4>The results will be with you in about 20 seconds.</h4>
+        <h4>Be patient. The results will be with you in about 20 seconds.</h4>
     </div>
 {%endblock%}
 
