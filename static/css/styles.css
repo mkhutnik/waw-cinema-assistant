@@ -1,8 +1,7 @@
 body{
-    /* background-color: #FAF3E0; */
-    background: radial-gradient(#47044d, #20043d);
-    /* color: #264653; */
-    font-family: "EB Garamond", sans-serif;
+    background-color: #000000;
+    color: #FDFDFD;
+    font-family: "Montserrat", serif;
     font-optical-sizing: auto;
     font-style: initial;
     font-weight: normal;
@@ -10,11 +9,17 @@ body{
 }
 
 .h1-title {
-    color: whitesmoke;
     padding-top: 30px;
+    font-family: "Bebas Neue", serif;
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 96px;
+    letter-spacing: 1%;
+    text-align: center;
 }
 
-.container-main{
+
+.container-main {
     /* background-color: #cac4b1; */
     padding: 1%;
     margin-top: 1%;
@@ -34,41 +39,56 @@ body{
     padding-top: 1%;
     padding-bottom: 1%;
     z-index: 1;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .container-title {
-    font-family: "Limelight", serif;
+    /* font-family: "Limelight", serif;
     font-weight: 400;
-    font-style: normal;
+    font-style: normal; */
     /* color: whitesmoke; */
-    background: linear-gradient(40deg, #ea00ff, #ea00ff, #03d5ff, #03d5ff);
+    /* background: linear-gradient(40deg, #ea00ff, #ea00ff, #03d5ff, #03d5ff);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; */
 }
 
 .container-form {
-    padding: 35px;
+    /* padding: 35px;
     color: whitesmoke;
-    font-family: "Noto Znamenny Musical Notation";
-    padding-bottom: 35px;
-}
+    /* font-family: "Noto Znamenny Musical Notation"; */
+    /* padding-bottom: 35px; */
+} 
 
 .btn-primary {
-    margin-top: 45px;
-    color: #20043d;
-    background-color: #03d5ff;
+    width: 56px;
+    height: 56px;
+    top: 192px;
+    left: 269px;
+    gap: 4px;
+    color: #FDFDFD;
+    background-color: #FE6C3B;
+    border-radius: 110px;
+    border-width: 2px;
+    border-color: #FDFDFD;
+    padding-top: 16px;
+    padding-right: 24px;
+    padding-bottom: 16px;
+    padding-left: 24px;
+    
 }
 
-#input {
-    border-radius:5px;
-    height: 38px;
-    background-color: #4682B4;
-    border-color: #EEEEEE;
-    color: #DCDCDC;
-    text-align: center;
-    margin: 5px;
-    font-weight: bold;
+input {
+    width: 250px;
+    height: 59px;
+    color: #FDFDFD;
+    gap: 4px;
+    border-radius: 110px;
+    border-width: 2px;
+    border-color: #FDFDFD;
+    background-color: #000000;
+    padding-top: 16px;
+    padding-right: 24px;
+    padding-bottom: 16px;
+    padding-left: 24px;
 }
 
 table {
@@ -96,8 +116,13 @@ tr:nth-child(even) {
 }
 
 h4 {
-    color: #03d5ff;
-    font-size: 18px;
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0%;
+    text-align: center;
+
 }
 /*thead{*/
 /*    background-color:#B0C4DE;*/
@@ -117,11 +142,16 @@ h4 {
 /*    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);*/
 /*}*/
 
-.center{
+.center {
     margin-left: auto;
     margin-right: auto;
 }
 
 .flex form-check-inline {
     font-family: serif;
+}
+
+img {
+    justify-content: center;
+    align-self: center;
 }

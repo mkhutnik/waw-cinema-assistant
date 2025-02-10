@@ -6,31 +6,31 @@
 
 {% block content %}
     <div id = 'title' class="container-title">
-            <img class="title-image" src="/static/cinema.png" alt="Movie" width="80" height="80" class="rounded-left">
-            <h1 class="h1-title">movie recommendations</h1>
-            <h2 class="">in Warsaw</h2>
+            <h1 class="h1-title">Warsaw movie <br>recommendations</h1>
     </div>
     <div id="form" class = "container-form">
         <form action="{{url_for('final', options = day)}}"  method="GET">
             <div class="flex form-check-inline">
-                <input type="radio" id="TODAY" name="day" value="TODAY" checked>
-                <label for="TODAY">today</label>
+                <input type="button" id="TODAY" name="day" value="Today" checked>
+                <!-- <label for="Today">Today</label> -->
             </div>
             <div class="flex form-check-inline">
-                <input type="radio" id="TOMORROW" name="day" value="TOMORROW">
-                <label for="TOMORROW">tomorrow</label></div>
+                <input type="button" id="TOMORROW" name="day" value="Tomorrow">
+                <!-- <label for="Tomorrow">Tomorrow</label> -->
+            </div>
             <div class="flex form-check-inline">
-                <input type="radio" id="DAY AFTER TOMORROW" name="day" value="DAY AFTER TOMORROW">
-                <label for="DAY AFTER TOMORROW">day after tomorrow</label></div>
+                <input type="button" id="DAY AFTER TOMORROW" name="day" value="Thur, 21.01"> 
+                <!-- <label for="DAY AFTER TOMORROW">Day after tomorrow</label> -->
+            </div>
                 
-            <div class="button">
-                <button id='button' type="submit" class="btn btn-primary">See results</button>
+            <div class="flex form-check-inline">
+                <button id='button' type="submit" class="btn btn-primary"><img src="/static/arrow-main.png" width="24" height="24"></button>
             </div>
         </form>
     </div>
 
     <div class="row mt-4">
-        <h4>Be patient. The results will be with you in about 20 seconds.</h4>
+        <h4>The result will be with you in about 20 sec.</h4>
     </div>
 {%endblock%}
 
